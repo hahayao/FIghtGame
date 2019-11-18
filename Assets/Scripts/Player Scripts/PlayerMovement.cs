@@ -16,6 +16,13 @@ public class PlayerMovement : MonoBehaviour
     //rotate player speed
     private float rotation_Speed = 15f;
 
+    protected Joystick joy_stick;
+
+    private void Start()
+    {
+        joy_stick = FindObjectOfType<Joystick>();
+    }
+
     void Awake()
     {
         mybody = GetComponent<Rigidbody>();
@@ -36,16 +43,20 @@ public class PlayerMovement : MonoBehaviour
 
     void DetectMovement()
     {
-        mybody.velocity = new Vector3(
+        /*mybody.velocity = new Vector3(
             Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) * (-walk_Speed),
             mybody.velocity.y,
-            Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (-z_Speed));
+            Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (-z_Speed));*/
+        mybody.velocity = new Vector3(
+        joy_stick.Horizontal * (-walk_Speed),
+        mybody.velocity.y,
+        joy_stick.Vertical * (-z_Speed));
     }
 
     void RotatePlayer()
     {
         //go to right side, see right side
-        if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) > 0)
+        /*if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) > 0)
         {
             transform.rotation = Quaternion.Euler(0f, -Mathf.Abs(rotation_Y), 0f);
         }
@@ -53,13 +64,23 @@ public class PlayerMovement : MonoBehaviour
         else if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) < 0)
         {
             transform.rotation = Quaternion.Euler(0f, Mathf.Abs(rotation_Y), 0f);
+        }*/
+
+        if (joy_stick.Horizontal > 0)
+        {
+            transform.rotation = Quaternion.Euler(0f, -Mathf.Abs(rotation_Y), 0f);
+        }
+        //go to left side, see left side
+        else if (joy_stick.Horizontal < 0)
+        {
+            transform.rotation = Quaternion.Euler(0f, Mathf.Abs(rotation_Y), 0f);
         }
     }
 
     void AnimatePlayerWalk()
     {
-        if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) != 0 ||
-            Input.GetAxisRaw(Axis.VERTICAL_AXIS) != 0)
+        if(joy_stick.Horizontal != 0 ||
+            joy_stick.Vertical != 0)
             {
             //call walk animation, also edit animation exit time, if it has no condition
             //better to set exit time to make the animation full display

@@ -30,11 +30,15 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             PlaceObject();
         }
+
+        
     }
 
     private void PlaceObject()
     {
         Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        placementIndicator.SetActive(false);
+        this.enabled = false;
     }
 
     private void UpdatePlacementIndicator()
@@ -42,7 +46,8 @@ public class ARTapToPlaceObject : MonoBehaviour
         if (placementPoseIsValid)
         {
             placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+            placementIndicator.transform.SetPositionAndRotation(placementPose.position,
+                placementPose.rotation);
         }
         else
         {
