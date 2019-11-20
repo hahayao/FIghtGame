@@ -45,12 +45,12 @@ public class AttackUniversal : MonoBehaviour
                     //Attack
                     hit[0].GetComponent<HealthScript>().ApplyDamage(damage, true);
                     //MP
-                    //hit[0].GetComponent<MPScript>().GetMP(2*increaseMP);
+                    GetComponentInParent<MPScript>().GetMP(2*increaseMP);
                 }
                 else
                 {
                     hit[0].GetComponent<HealthScript>().ApplyDamage(damage, false);
-                    //hit[0].GetComponent<MPScript>().GetMP(increaseMP);
+                    GetComponentInParent<MPScript>().GetMP(increaseMP);
                 }
             }
 

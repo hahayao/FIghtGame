@@ -26,7 +26,7 @@ public class ARTapToPlaceObject : MonoBehaviour
         UpdatePlacementPose();
         UpdatePlacementIndicator();
 
-        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             PlaceObject();
         }
@@ -43,16 +43,15 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     private void UpdatePlacementIndicator()
     {
-        if (placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position,
-                placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
+        //if (placementPoseIsValid)
+        //{
+        placementIndicator.SetActive(true);
+        placementIndicator.transform.SetPositionAndRotation(placementPose.position,placementPose.rotation);
+        //}
+        //else
+        //{
+        //    placementIndicator.SetActive(false);
+        //}
     }
 
     private void UpdatePlacementPose()
@@ -63,14 +62,15 @@ public class ARTapToPlaceObject : MonoBehaviour
         arOrigin.GetComponent<ARRaycastManager>().Raycast(screenCenter, hits, TrackableType.Planes);
         //arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            placementPose = hits[0].pose;
+        //placementPoseIsValid = hits.Count > 0;
+        //if (placementPoseIsValid)
+        //{
 
-            var cameraForward = Camera.main.transform.forward;
-            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing);
-        }
+        placementPose = hits[0].pose;
+
+        var cameraForward = Camera.main.transform.forward;
+        var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+        placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+        //}
     }
 }

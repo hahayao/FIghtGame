@@ -12,7 +12,7 @@ public class MPScript : MonoBehaviour
 
     public bool is_Player;
     private MPUI MP_UI;
-    float regen = 3f; 
+    float regen = 0.5f; 
 
     private void Awake()
     {

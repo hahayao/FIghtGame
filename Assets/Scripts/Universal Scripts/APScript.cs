@@ -13,7 +13,7 @@ public class APScript : MonoBehaviour
     public bool is_Player;
     private APUI AP_UI;
     // value for regenerate Rate
-    public float regenRate = 100f;
+    public float regenRate = 5f;
 
     private void Awake()
     {
@@ -46,19 +46,12 @@ public class APScript : MonoBehaviour
 
         if (AP < 0)
         {
-            
+            AP = 0;
         }
 
         //display AP UI
 
         AP_UI.DisplayAP(AP);
-
-        
-  /*      if (AP <= 0f)
-        {
-            //penalize player for using all AP
-        }*/
-
 
     }
 

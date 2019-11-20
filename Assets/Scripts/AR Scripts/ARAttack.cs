@@ -53,7 +53,10 @@ public class ARAttack : MonoBehaviour
 
     public void ComboAttacks()
     {
-        if (buttonPunch.Pressed)
+
+        float AP = GetComponent<APScript>().AP;
+
+        if (buttonPunch.Pressed && AP > APPunch)
         {
             //avoid state overflow to kick action when click keyboard too fast
             if (current_Combo_state == ComboStateAR.PUNCH_3 ||
@@ -85,9 +88,10 @@ public class ARAttack : MonoBehaviour
             //decrease AP
             GetComponent<APScript>().UseAP(APPunch);
             //increase MP
-            GetComponent<MPScript>().GetMP(1);
+            //GetComponent<MPScript>().GetMP(1);
         }
-        if (buttonKick.Pressed)
+
+        if (buttonKick.Pressed && AP > APKick)
         {
             buttonKick.Pressed = false;
             //if cur is punch3 or kick2 => return => have no combo to perform
@@ -122,7 +126,7 @@ public class ARAttack : MonoBehaviour
             }
             GetComponent<APScript>().UseAP(APKick);
             //increase MP
-            GetComponent<MPScript>().GetMP(1);
+            //GetComponent<MPScript>().GetMP(1);
         }
     }
 
