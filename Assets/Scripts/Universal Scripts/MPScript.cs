@@ -4,51 +4,49 @@ using UnityEngine;
 
 public class MPScript : MonoBehaviour
 {
-    public float MP = 100f;
-    private CharacterAnimation animationScript;
+    public float MP = 0f;
+    //private CharacterAnimation animationScript;
     private EnemyMovement enemyMovement;
 
     private bool characterDied;
 
     public bool is_Player;
     private MPUI MP_UI;
+    float regen = 3f; 
 
     private void Awake()
     {
-        animationScript = GetComponentInChildren<CharacterAnimation>();
+        //animationScript = GetComponentInChildren<CharacterAnimation>();
         if(is_Player)
         {
             MP_UI = GetComponent<MPUI>();
         }
-        
     }
 
-    public void ApplyDamage(float damage, bool knockDown)
+    private void Update()
+    {
+        //
+        MP += regen * Time.deltaTime;
+        MP_UI.DisplayMP(MP);
+        if (MP > 100)
+        {
+            MP = 100;
+            //do some super move here
+        }
+    }
+
+    public void GetMP(float MPPoint)
     {
         //if (characterDied)
         //    return;
 
-        MP -= damage;
+        MP += MPPoint;
 
         //display MP UI
-        if(is_Player)
-        {
-            MP_UI.DisplayMP(MP);
-        }
+
+        MP_UI.DisplayMP(MP);
 
         //TODO: Implement the mechanics for a super move
-        if (MP <= 0f)
-        {
-            //animationScript.Death();
-            //characterDied = true;
-
-            //if it is the player deactivate enemy script
-            //if (is_Player)
-            //{
-            //    GameObject.FindWithTag(Tags.ENEMY_TAG).GetComponent<EnemyMovement>().enabled = false;
-            //}
-            //return;
-        }
 
     }
 

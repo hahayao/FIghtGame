@@ -7,6 +7,7 @@ public class AttackUniversal : MonoBehaviour
     public LayerMask collisionLayer;
     public float radius = 1f;
     public float damage = 2f;
+    public float increaseMP = 5;
 
     public bool is_Player, is_Enemy;
     public GameObject hit_FX_Prefab;
@@ -41,11 +42,15 @@ public class AttackUniversal : MonoBehaviour
                 //only punch3, kick2 can apply knock down
                 if(gameObject.CompareTag(Tags.LEFT_ARM_TAG) || gameObject.CompareTag(Tags.LEFT_LEG_TAG))
                 {
+                    //Attack
                     hit[0].GetComponent<HealthScript>().ApplyDamage(damage, true);
+                    //MP
+                    //hit[0].GetComponent<MPScript>().GetMP(2*increaseMP);
                 }
                 else
                 {
                     hit[0].GetComponent<HealthScript>().ApplyDamage(damage, false);
+                    //hit[0].GetComponent<MPScript>().GetMP(increaseMP);
                 }
             }
 

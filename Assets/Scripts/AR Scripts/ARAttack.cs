@@ -26,6 +26,9 @@ public class ARAttack : MonoBehaviour
     protected Button buttonKick;
     protected Button buttonPunch;
 
+    public float APPunch = 10.0f;
+    public float APKick = 11.0f;
+
     private ComboStateAR current_Combo_state;
 
     private void Start()
@@ -68,16 +71,21 @@ public class ARAttack : MonoBehaviour
             {
                 player_Anim.Punch_1();
             }
-
+            
             if (current_Combo_state == ComboStateAR.PUNCH_2)
             {
                 player_Anim.Punch_2();
+
             }
 
             if (current_Combo_state == ComboStateAR.PUNCH_3)
             {
                 player_Anim.Punch_3();
             }
+            //decrease AP
+            GetComponent<APScript>().UseAP(APPunch);
+            //increase MP
+            GetComponent<MPScript>().GetMP(1);
         }
         if (buttonKick.Pressed)
         {
@@ -112,7 +120,9 @@ public class ARAttack : MonoBehaviour
             {
                 player_Anim.Kick_2();
             }
-
+            GetComponent<APScript>().UseAP(APKick);
+            //increase MP
+            GetComponent<MPScript>().GetMP(1);
         }
     }
 
